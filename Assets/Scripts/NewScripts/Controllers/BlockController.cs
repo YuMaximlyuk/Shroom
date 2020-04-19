@@ -54,15 +54,15 @@ public class BlockController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (Mathf.Abs(Mathf.Abs(m_PlayerController.GetVelocity()) - m_PlayerController.GetMaxVelocity()) < 0.001f)
-            {
-                Destroy(m_Platform.gameObject);
-            }
-            else
-            {
+            //if (Mathf.Abs(Mathf.Abs(m_PlayerController.GetVelocity()) - m_PlayerController.GetMaxVelocity()) < 0.001f)
+            //{
+            //    Destroy(m_Platform.gameObject);
+            //}
+            //else
+            //{
                 Debug.Log("PushPlayer");
                 PushPlayer();
-            }
+            //}
         }
     }
 
@@ -96,6 +96,10 @@ public class BlockController : MonoBehaviour
         else if(m_Velocity < 0 && m_Player.transform.position.y - m_Platform.transform.position.y > m_UpDistance)
         {
             Debug.Log("Up");
+            if (Mathf.Abs(Mathf.Abs(m_PlayerController.GetVelocity()) - m_PlayerController.GetMaxVelocity()) < 0.001f)
+            {
+                Destroy(m_Platform.gameObject);
+            }
             m_PlayerRigidbody.velocity = new Vector2(0, m_PushForce);
             //m_PlayerRigidbody.AddForce(Vector2.up * m_PushForce, ForceMode2D.Impulse);
             Sound();

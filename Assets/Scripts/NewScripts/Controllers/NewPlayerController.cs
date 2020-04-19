@@ -44,7 +44,14 @@ public class NewPlayerController : MonoBehaviour
     {
         if (m_Rigidbody.velocity.y < 0 && Input.GetMouseButton(0))
         {
-            Move();
+            //Move();
+            Speed();
+            SideMove();
+
+        }
+        if(m_Rigidbody.velocity.y > 0 && Input.GetMouseButton(0))
+        {
+            SideMove();
         }
         Animation();
         if (m_Rigidbody.velocity.y != 0f)
@@ -98,7 +105,50 @@ public class NewPlayerController : MonoBehaviour
         }
     }
 
-    private void Move()
+    //private void Move()
+    //{
+    //    if (Input.GetAxis("Mouse Y") > 0)
+    //    {
+    //        if (m_Rigidbody.velocity.y + m_Sensitivity * Time.deltaTime > -m_MinVelocity)
+    //        {
+    //            m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x, -m_MinVelocity);
+    //        }
+    //        else
+    //        {
+    //            m_Rigidbody.AddForce(Vector2.up * m_Sensitivity * Time.deltaTime, ForceMode2D.Impulse);
+    //        }
+
+    //    }
+    //    else if (Input.GetAxis("Mouse Y") < 0)
+    //    {
+    //        if (m_Rigidbody.velocity.y - m_Sensitivity * Time.deltaTime < -m_MaxVelocity)
+    //        {
+    //            m_Rigidbody.velocity = new Vector2(m_Rigidbody.velocity.x, -m_MaxVelocity);
+    //        }
+    //        else
+    //        {
+    //            m_Rigidbody.AddForce(Vector2.down * m_Sensitivity * Time.deltaTime, ForceMode2D.Impulse);
+    //        }
+    //    }
+    //    if (Input.GetAxis("Mouse X") > 0)
+    //    {
+    //        transform.Translate(Vector2.right * m_Sensitivity * Time.deltaTime);
+    //        if (m_SpriteRenderer.flipX)
+    //        {
+    //            m_SpriteRenderer.flipX = false;
+    //        }
+    //    }
+    //    else if (Input.GetAxis("Mouse X") < 0)
+    //    {
+    //        transform.Translate(Vector2.left * m_Sensitivity * Time.deltaTime);
+    //        if (!m_SpriteRenderer.flipX)
+    //        {
+    //            m_SpriteRenderer.flipX = true;
+    //        }
+    //    }
+    //}
+
+    private void Speed()
     {
         if (Input.GetAxis("Mouse Y") > 0)
         {
@@ -123,6 +173,10 @@ public class NewPlayerController : MonoBehaviour
                 m_Rigidbody.AddForce(Vector2.down * m_Sensitivity * Time.deltaTime, ForceMode2D.Impulse);
             }
         }
+    }
+
+    private void SideMove()
+    {
         if (Input.GetAxis("Mouse X") > 0)
         {
             transform.Translate(Vector2.right * m_Sensitivity * Time.deltaTime);
