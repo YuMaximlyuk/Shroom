@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Platform
   - Block
+  - BlockController
+  - PlatformController
   layers:
   - Default
   - TransparentFX

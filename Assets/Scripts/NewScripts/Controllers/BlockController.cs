@@ -22,6 +22,8 @@ public class BlockController : MonoBehaviour
     private float m_Velocity;
 
     private AudioSource m_AudioSource;
+    [SerializeField]
+    private AudioClip m_CrashAudio;
 
     void Start()
     {
@@ -98,6 +100,8 @@ public class BlockController : MonoBehaviour
             Debug.Log("Up");
             if (Mathf.Abs(Mathf.Abs(m_PlayerController.GetVelocity()) - m_PlayerController.GetMaxVelocity()) < 0.001f)
             {
+                m_AudioSource.clip = m_CrashAudio;
+                Sound();
                 Destroy(m_Platform.gameObject);
             }
             m_PlayerRigidbody.velocity = new Vector2(0, m_PushForce);

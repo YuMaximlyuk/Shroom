@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5732700295205735843}
   m_Layer: 0
   m_Name: Controller
-  m_TagString: Block
+  m_TagString: BlockController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -164,6 +164,7 @@ MonoBehaviour:
   m_UpDistance: 1
   m_DownDistance: 0.17
   m_Velocity: 0
+  m_CrashAudio: {fileID: 8300000, guid: 78dc00a80451c61438ce1303997b3177, type: 3}
 --- !u!1 &5732700296686486743
 GameObject:
   m_ObjectHideFlags: 0

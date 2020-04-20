@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 3868115286014363973}
   m_Layer: 0
   m_Name: Controller
-  m_TagString: Platform
+  m_TagString: PlatformController
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
