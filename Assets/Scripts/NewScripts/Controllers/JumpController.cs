@@ -50,7 +50,7 @@ public class JumpController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && m_CanPush)
         {
-            Debug.Log("Enter");
+            //Debug.Log("Enter");
             m_CanPush = false;
             PushPlayer();
             Sound();
@@ -62,10 +62,10 @@ public class JumpController : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
 
-            Debug.Log("Stay");
+            //Debug.Log("Stay");
             if (m_CanPush)
             {
-                Debug.Log("Push in stay");
+                //Debug.Log("Push in stay");
                 m_CanPush = false;
                 PushPlayer();
                 Sound();

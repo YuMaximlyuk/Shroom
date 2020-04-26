@@ -60,11 +60,11 @@ public class NewPlayerController : MonoBehaviour
         }
         if (m_BoundY - transform.position.y < 0.001f)
         {
-            Debug.Log("Bound");
+            //Debug.Log("Bound");
             m_Rigidbody.velocity = new Vector2(0f, -Mathf.Abs(m_Velocity));
             m_Velocity = -Mathf.Abs(m_Velocity);
             m_BoundY = float.MaxValue;
-            Debug.Log(m_BoundY - transform.position.y);
+            //Debug.Log(m_BoundY - transform.position.y);
         }
         if (m_Rigidbody.velocity.y < m_MinVelocity && m_Rigidbody.velocity.y > -m_MinVelocity)
         {

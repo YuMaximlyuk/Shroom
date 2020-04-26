@@ -8,6 +8,7 @@ TagManager:
   - Block
   - BlockController
   - PlatformController
+  - DestroyZone
   layers:
   - Default
   - TransparentFX

@@ -8,14 +8,17 @@ public class PlatformManager : MonoBehaviour
     private GameObject[] blockPlatforms;
     [SerializeField]
     private GameObject bottomPlatform;
+    [SerializeField]
+    private GameObject bottomBlockPlatform;
 
 
     void Start()
     {
         blockPlatforms = GameObject.FindGameObjectsWithTag("Block");
-        foreach(var bp in blockPlatforms)
-        {
-            bp.SetActive(false);
-        }
+        //foreach (var bp in blockPlatforms)
+        //{
+        //    bp.SetActive(false);
+        //}
+        bottomBlockPlatform.SetActive(false);
     }
 }
