@@ -5,20 +5,32 @@ using UnityEngine;
 public class PlatformManager : MonoBehaviour
 {
     [SerializeField]
-    private GameObject[] blockPlatforms;
+    private GameObject[] m_BlockPlatforms;
     [SerializeField]
-    private GameObject bottomPlatform;
+    private List<BlockController> m_BlockControllers;
     [SerializeField]
-    private GameObject bottomBlockPlatform;
+    private GameObject m_DownPlatform;
+    [SerializeField]
+    private GameObject m_DownBlockPlatform;
 
 
     void Start()
     {
-        blockPlatforms = GameObject.FindGameObjectsWithTag("Block");
-        //foreach (var bp in blockPlatforms)
-        //{
-        //    bp.SetActive(false);
-        //}
-        bottomBlockPlatform.SetActive(false);
+        m_BlockPlatforms = GameObject.FindGameObjectsWithTag("Block");
+        foreach (var bp in m_BlockPlatforms)
+        {
+            m_BlockControllers.Add(bp.GetComponentInChildren<BlockController>());
+        }
+        m_DownBlockPlatform.SetActive(false);
+    }
+
+    public void Back()
+    {
+        foreach(var bc in m_BlockControllers)
+        {
+            bc.SetCanCrash(true);
+        }
+        m_DownBlockPlatform.SetActive(true);
+        m_DownPlatform.SetActive(false);
     }
 }

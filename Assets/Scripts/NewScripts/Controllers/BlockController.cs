@@ -6,7 +6,7 @@ public class BlockController : MonoBehaviour
 {
     [SerializeField]
     private GameObject m_Player;
-    private Rigidbody2D m_PlayerRigidbody;
+    //private Rigidbody2D m_PlayerRigidbody;
     private NewPlayerController m_PlayerController;
     [SerializeField]
     private Transform m_Platform;
@@ -39,7 +39,6 @@ public class BlockController : MonoBehaviour
         m_Collider = GetComponent<CapsuleCollider2D>();
 
         m_Player = GameObject.FindGameObjectWithTag("Player");
-        m_PlayerRigidbody = m_Player.GetComponent<Rigidbody2D>();
         m_PlayerController = m_Player.GetComponent<NewPlayerController>();
 
         m_PushForce = m_PlayerController.GetMinVelocity();
@@ -71,7 +70,7 @@ public class BlockController : MonoBehaviour
             //}
             //else
             //{
-            //Debug.Log("PushPlayer");
+            Debug.Log("PushPlayer");
             PushPlayer();
             //}
         }
@@ -83,11 +82,13 @@ public class BlockController : MonoBehaviour
         {
             float bound = m_PlayerController.GetBoundY();
 
-            if (m_Platform.transform.position.y - m_Player.transform.position.y < m_DownDistance && m_Player.transform.position.y - m_Platform.transform.position.y < m_UpDistance && Mathf.Abs(bound - m_Player.transform.position.y) > 0.001f)
+            if (m_Platform.transform.position.y - m_Player.transform.position.y < m_DownDistance * m_Platform.transform.localScale.y && 
+                m_Player.transform.position.y - m_Platform.transform.position.y < m_UpDistance * m_Platform.transform.localScale.y && 
+                Mathf.Abs(bound - m_Player.transform.position.y) > 0.001f)
             {
                 m_Velocity = m_PlayerController.GetVelocity();
-                //Debug.Log("Stay");
-                m_PlayerRigidbody.velocity = new Vector2(0, m_Velocity);
+                Debug.Log("Stay");
+                m_PlayerController.SetVelocity(m_Velocity);
             }
             else
             {
@@ -100,16 +101,15 @@ public class BlockController : MonoBehaviour
     {
         //Debug.Log("Player velocity: " + m_PlayerController.GetVelocity());
         m_Velocity = m_PlayerController.GetVelocity();
-        if (m_Velocity > 0 && m_Platform.transform.position.y - m_Player.transform.position.y > m_DownDistance)
+        if (m_Velocity > 0 && m_Platform.transform.position.y - m_Player.transform.position.y > m_DownDistance * m_Platform.transform.localScale.y)
         {
-            //Debug.Log("Down");
-            m_PlayerRigidbody.velocity = new Vector2(0, -m_Velocity);
-            //m_PlayerRigidbody.AddForce(Vector2.down * -m_Velocity, ForceMode2D.Impulse);
+            Debug.Log("Down");
+            m_PlayerController.SetVelocity(-m_Velocity);
             Sound();
         }
-        else if (m_Velocity < 0 && m_Player.transform.position.y - m_Platform.transform.position.y > m_UpDistance)
+        else if (m_Velocity < 0 && m_Player.transform.position.y - m_Platform.transform.position.y > m_UpDistance * m_Platform.transform.localScale.y)
         {
-            //Debug.Log("Up");
+            Debug.Log("Up");
             if (Mathf.Abs(Mathf.Abs(m_PlayerController.GetVelocity()) - m_PlayerController.GetMaxVelocity()) < 0.001f && m_CanCrash)
             {
                 m_AudioSource.clip = m_CrashAudio;
@@ -117,23 +117,21 @@ public class BlockController : MonoBehaviour
                 m_Rigidbody.constraints = RigidbodyConstraints2D.None;
                 //m_Rigidbody.SetRotation(15f);
                 m_Collider.enabled = false;
-                //Destroy(m_Platform.gameObject);
-                StartCoroutine("DeactivatePlatform");
+                StartCoroutine(DeactivatePlatform());
 
             }
             else
             {
                 Sound();
             }
-            m_PlayerRigidbody.velocity = new Vector2(0, m_PushForce);
-            //m_PlayerRigidbody.AddForce(Vector2.up * m_PushForce, ForceMode2D.Impulse);
+            m_PlayerController.SetVelocity(m_PushForce);
             //Sound();
             SetBoundY();
         }
         else
         {
-            //Debug.Log("Middle");
-            m_PlayerRigidbody.velocity = new Vector2(0, m_Velocity);
+            Debug.Log("Middle");
+            m_PlayerController.SetVelocity(m_Velocity);
         }
     }
 
@@ -165,5 +163,10 @@ public class BlockController : MonoBehaviour
         yield return new WaitForSeconds(1.8f);
         Debug.Log("Deactivate");
         m_Platform.gameObject.SetActive(false);
+    }
+
+    public void SetCanCrash(bool canCrash)
+    {
+        m_CanCrash = canCrash;
     }
 }

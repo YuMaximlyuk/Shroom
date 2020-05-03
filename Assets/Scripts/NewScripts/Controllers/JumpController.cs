@@ -82,7 +82,7 @@ public class JumpController : MonoBehaviour
     {
         //Debug.Log("Player velocity: " + m_PlayerController.GetVelocity());
         m_PushForce = Mathf.Abs(m_PlayerController.GetVelocity());
-        m_PlayerRigidbody.velocity = new Vector2(0, m_PushForce);
+        //m_PlayerRigidbody.velocity = new Vector2(0, m_PushForce);
         m_PlayerController.SetVelocity(m_PushForce);
         SetBoundY();
     }
