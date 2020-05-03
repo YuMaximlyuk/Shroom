@@ -6,6 +6,12 @@ TagManager:
   tags:
   - Platform
   - Block
+  - BlockController
+  - PlatformController
+  - DestroyZone
+  - WormTrigger
+  - JellyfishTrigger
+  - PlatformManager
   layers:
   - Default
   - TransparentFX

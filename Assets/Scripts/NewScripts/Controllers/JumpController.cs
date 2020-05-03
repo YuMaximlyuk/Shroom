@@ -50,7 +50,7 @@ public class JumpController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" && m_CanPush)
         {
-            Debug.Log("Enter");
+            //Debug.Log("Enter");
             m_CanPush = false;
             PushPlayer();
             Sound();
@@ -62,10 +62,10 @@ public class JumpController : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
 
-            Debug.Log("Stay");
+            //Debug.Log("Stay");
             if (m_CanPush)
             {
-                Debug.Log("Push in stay");
+                //Debug.Log("Push in stay");
                 m_CanPush = false;
                 PushPlayer();
                 Sound();
@@ -82,7 +82,7 @@ public class JumpController : MonoBehaviour
     {
         //Debug.Log("Player velocity: " + m_PlayerController.GetVelocity());
         m_PushForce = Mathf.Abs(m_PlayerController.GetVelocity());
-        m_PlayerRigidbody.velocity = new Vector2(0, m_PushForce);
+        //m_PlayerRigidbody.velocity = new Vector2(0, m_PushForce);
         m_PlayerController.SetVelocity(m_PushForce);
         SetBoundY();
     }
