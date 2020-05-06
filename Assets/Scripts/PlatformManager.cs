@@ -7,30 +7,34 @@ public class PlatformManager : MonoBehaviour
     [SerializeField]
     private GameObject[] m_BlockPlatforms;
     [SerializeField]
-    private List<BlockController> m_BlockControllers;
-    [SerializeField]
     private GameObject m_DownPlatform;
     [SerializeField]
     private GameObject m_DownBlockPlatform;
 
-
     void Start()
     {
         m_BlockPlatforms = GameObject.FindGameObjectsWithTag("Block");
-        foreach (var bp in m_BlockPlatforms)
-        {
-            m_BlockControllers.Add(bp.GetComponentInChildren<BlockController>());
-        }
         m_DownBlockPlatform.SetActive(false);
     }
 
-    public void Back()
+    public void Down()
     {
-        foreach(var bc in m_BlockControllers)
+        for (int i = 0; i < m_BlockPlatforms.Length; ++i)
         {
-            bc.SetCanCrash(true);
+            m_BlockPlatforms[i].GetComponentInChildren<BlockController>().SetCanCrash(true);
         }
         m_DownBlockPlatform.SetActive(true);
         m_DownPlatform.SetActive(false);
+
+    }
+
+    public void Up()
+    {
+        for (int i = 0; i < m_BlockPlatforms.Length; ++i)
+        {
+            m_BlockPlatforms[i].GetComponentInChildren<BlockController>().ResetBlock();
+        }
+        m_DownBlockPlatform.SetActive(false);
+        m_DownPlatform.SetActive(true);
     }
 }

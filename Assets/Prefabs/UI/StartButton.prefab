@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &14566367828919409
+--- !u!1 &5774158955905162000
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,12 +8,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 14566367828919408}
-  - component: {fileID: 14566367828919405}
-  - component: {fileID: 14566367828919406}
-  - component: {fileID: 14566367828919407}
-  - component: {fileID: 14566367828919404}
-  - component: {fileID: 14566367828919403}
+  - component: {fileID: 5774158955905162001}
+  - component: {fileID: 5774158955905161996}
+  - component: {fileID: 5774158955905161999}
+  - component: {fileID: 5774158955905161998}
+  - component: {fileID: 5774158955905161997}
+  - component: {fileID: 5774158955905161994}
   m_Layer: 5
   m_Name: StartButton
   m_TagString: Untagged
@@ -21,13 +21,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &14566367828919408
+--- !u!224 &5774158955905162001
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 14566367828919409}
+  m_GameObject: {fileID: 5774158955905162000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
@@ -40,21 +40,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -20}
   m_SizeDelta: {x: 172, y: 62}
   m_Pivot: {x: 0.5, y: 0}
---- !u!222 &14566367828919405
+--- !u!222 &5774158955905161996
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 14566367828919409}
+  m_GameObject: {fileID: 5774158955905162000}
   m_CullTransparentMesh: 0
---- !u!114 &14566367828919406
+--- !u!114 &5774158955905161999
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 14566367828919409}
+  m_GameObject: {fileID: 5774158955905162000}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -68,7 +68,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 1e305b74b646311468ff604e551ccef2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ec163a553f96f694296eed984ba3bfb0, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -78,13 +78,13 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &14566367828919407
+--- !u!114 &5774158955905161998
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 14566367828919409}
+  m_GameObject: {fileID: 5774158955905162000}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -106,7 +106,7 @@ MonoBehaviour:
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
   m_SpriteState:
-    m_HighlightedSprite: {fileID: 21300000, guid: c1d0fe13c17b706458349dea05112b3e,
+    m_HighlightedSprite: {fileID: 21300000, guid: 0fcef7ad575a3aa44a2866f1ee8b115b,
       type: 3}
     m_PressedSprite: {fileID: 0}
     m_SelectedSprite: {fileID: 0}
@@ -118,7 +118,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 14566367828919406}
+  m_TargetGraphic: {fileID: 5774158955905161999}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -133,7 +133,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 14566367828919404}
+      - m_Target: {fileID: 5774158955905161997}
         m_MethodName: OnClickAudio
         m_Mode: 1
         m_Arguments:
@@ -146,13 +146,13 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &14566367828919404
+--- !u!114 &5774158955905161997
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 14566367828919409}
+  m_GameObject: {fileID: 5774158955905162000}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a57a12a074c83dc46b57909d78aae1bf, type: 3}
@@ -161,13 +161,13 @@ MonoBehaviour:
   m_OnButtonAudio: {fileID: 8300000, guid: 8793b40a393aace4e90d7c4dd3393b6f, type: 3}
   m_OnClickButtonAudio: {fileID: 8300000, guid: c65e96309485d2c48bdeb10a25f287b2,
     type: 3}
---- !u!82 &14566367828919403
+--- !u!82 &5774158955905161994
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 14566367828919409}
+  m_GameObject: {fileID: 5774158955905162000}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}

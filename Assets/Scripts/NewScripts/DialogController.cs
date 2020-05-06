@@ -15,7 +15,14 @@ public class DialogController : MonoBehaviour
     //Фразы NPC
     [SerializeField]
     [TextArea(2, 5)]
-    private string[] m_Phrases;
+    private string[] m_FirstPhrases;
+    [SerializeField]
+    [TextArea(2, 5)]
+    private string[] m_SecondPhrases;
+    [SerializeField]
+    [TextArea(2, 5)]
+    private string[] m_AbuseWords;
+    private int m_Counter = 0;
     private Queue<string> m_PhrasesQueue;
     //Текущая фраза
     private string m_Phrase;
@@ -33,16 +40,28 @@ public class DialogController : MonoBehaviour
     [SerializeField]
     private PlatformManager m_PlatformManager;
 
+    [SerializeField]
+    private float m_Timer = 0;
+
+    [SerializeField]
+    private DialogController m_AnotherTrigger;
+
     void Start()
     {
         m_TextPanel.color = new Color(m_TextPanel.color.r, m_TextPanel.color.g, m_TextPanel.color.b, 0f);
         m_PhraseText.text = "";
         m_Canvas.gameObject.SetActive(false);
         m_PhrasesQueue = new Queue<string>();
-        foreach(var phrase in m_Phrases)
-        {
-            m_PhrasesQueue.Enqueue(phrase);
-        }
+        //foreach(var phrase in m_Phrases)
+        //{
+        //    if(phrase.Contains("[время]"))
+        //    {
+        //        Debug.Log(phrase);
+        //        var newphrase = phrase.Replace("[время]", m_Timer.ToString());
+        //        Debug.Log(newphrase);
+        //    }
+        //    m_PhrasesQueue.Enqueue(phrase);
+        //}
 
         var platformManager = GameObject.FindGameObjectWithTag("PlatformManager");
         m_PlatformManager = platformManager.GetComponent<PlatformManager>();
@@ -74,6 +93,8 @@ public class DialogController : MonoBehaviour
                         m_PlayerController.SetCanMove(true);
                         GetComponent<BoxCollider2D>().enabled = false;
                         m_Active = false;
+                        m_AnotherTrigger.ActivateTrigger();
+                        m_PlayerController.GetComponent<Timer>().UpdateStartTime();
                     }
                 }
             }
@@ -85,7 +106,49 @@ public class DialogController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Player")
         {
+            m_PhraseText.text = "";
+            m_Counter++;
             m_PlayerController = collision.GetComponent<NewPlayerController>();
+            //m_PlayerController.UpdateTime();
+            collision.GetComponent<Timer>().UpdateTimer();
+            //m_Timer = m_PlayerController.GetTimer();
+            m_Timer = collision.GetComponent<Timer>().GetTimer();
+            if (m_Counter > 1)
+            {
+                foreach (var phrase in m_SecondPhrases)
+                {
+                    if (phrase.Contains("[время]"))
+                    {
+                        var newPhrase = phrase.Replace("[время]", m_Timer.ToString("#.##"));
+                        m_PhrasesQueue.Enqueue(newPhrase);
+                    } else if(phrase.Contains("[обзывательство]"))
+                    {
+                        var index = (m_Counter - 2) % m_AbuseWords.Length;
+                        var newPhrase = phrase.Replace("[обзывательство]", m_AbuseWords[index]);
+                        m_PhrasesQueue.Enqueue(newPhrase);
+                    }
+                    else
+                    {
+                        m_PhrasesQueue.Enqueue(phrase);
+                    }
+                }
+            }
+            else
+            {
+                foreach (var phrase in m_FirstPhrases)
+                {
+                    if (phrase.Contains("[время]"))
+                    {
+                        var newPhrase = phrase.Replace("[время]", m_Timer.ToString("#.##"));
+                        m_PhrasesQueue.Enqueue(newPhrase);
+                    }
+                    else
+                    {
+                        m_PhrasesQueue.Enqueue(phrase);
+                    }
+                }
+            }
+
             m_PlayerVelocity = m_PlayerController.GetVelocity();
             m_Active = true;
             m_Canvas.gameObject.SetActive(true);
@@ -105,6 +168,7 @@ public class DialogController : MonoBehaviour
         StartCoroutine(WritePhrase(m_Phrase));
     }
 
+    //Исчезновение панели с текстом
     private IEnumerator EndDialog()
     {
         while (m_TextPanel.color.a > 0.001f)
@@ -126,5 +190,10 @@ public class DialogController : MonoBehaviour
             yield return null;
         }
         m_Writing = false;
+    }
+
+    public void ActivateTrigger()
+    {
+        GetComponent<BoxCollider2D>().enabled = true;
     }
 }

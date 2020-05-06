@@ -20,7 +20,7 @@ public class NewPlayerController : MonoBehaviour
     private float m_Sensitivity = 1.5f;
     //[SerializeField]
     private float m_Velocity;
-    [SerializeField]
+    //[SerializeField]
     private float m_BoundY;
 
     [SerializeField]
@@ -163,17 +163,18 @@ public class NewPlayerController : MonoBehaviour
         if (collision.gameObject.tag == "WormTrigger" || collision.gameObject.tag == "JellyfishTrigger")
         {
             Debug.Log("WormTrigger");
-            m_CanMove = false;
-            m_Rigidbody.velocity = Vector2.zero;
+            Stop();
         }
         if(collision.gameObject.tag == "WormTrigger")
         {
             SetBoundY(m_DownPlatform.transform.position.y + m_MinHeight);
+            var platformManager = GameObject.FindGameObjectWithTag("PlatformManager").GetComponent<PlatformManager>();
+            platformManager.Up();
         }
         if(collision.gameObject.tag == "JellyfishTrigger")
         {
             var platformManager = GameObject.FindGameObjectWithTag("PlatformManager").GetComponent<PlatformManager>();
-            platformManager.Back();
+            platformManager.Down();
         }
     }
 
@@ -225,5 +226,17 @@ public class NewPlayerController : MonoBehaviour
     public void SetCanMove(bool canMove)
     {
         m_CanMove = canMove;
+    }
+
+    public void Stop()
+    {
+        m_CanMove = false;
+        m_Rigidbody.velocity = Vector2.zero;
+    }
+
+    public void Continue()
+    {
+        m_CanMove = true;
+        m_Rigidbody.velocity = new Vector2(0, m_Velocity);
     }
 }

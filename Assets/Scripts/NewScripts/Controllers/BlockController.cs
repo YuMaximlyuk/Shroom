@@ -6,7 +6,6 @@ public class BlockController : MonoBehaviour
 {
     [SerializeField]
     private GameObject m_Player;
-    //private Rigidbody2D m_PlayerRigidbody;
     private NewPlayerController m_PlayerController;
     [SerializeField]
     private Transform m_Platform;
@@ -27,14 +26,20 @@ public class BlockController : MonoBehaviour
 
     private AudioSource m_AudioSource;
     [SerializeField]
+    private AudioClip m_PolyporeAudio;
+    [SerializeField]
     private AudioClip m_CrashAudio;
+
 
     [SerializeField]
     private bool m_CanCrash = false;
+    [SerializeField]
+    private Vector2 m_StartPosition;
 
     void Start()
     {
         m_Platform = transform.parent;
+        m_StartPosition = new Vector2(m_Platform.transform.position.x, m_Platform.transform.position.y);
         m_Rigidbody = m_Platform.GetComponent<Rigidbody2D>();
         m_Collider = GetComponent<CapsuleCollider2D>();
 
@@ -64,15 +69,8 @@ public class BlockController : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            //if (Mathf.Abs(Mathf.Abs(m_PlayerController.GetVelocity()) - m_PlayerController.GetMaxVelocity()) < 0.001f)
-            //{
-            //    Destroy(m_Platform.gameObject);
-            //}
-            //else
-            //{
             Debug.Log("PushPlayer");
             PushPlayer();
-            //}
         }
     }
 
@@ -99,7 +97,6 @@ public class BlockController : MonoBehaviour
 
     private void PushPlayer()
     {
-        //Debug.Log("Player velocity: " + m_PlayerController.GetVelocity());
         m_Velocity = m_PlayerController.GetVelocity();
         if (m_Velocity > 0 && m_Platform.transform.position.y - m_Player.transform.position.y > m_DownDistance * m_Platform.transform.localScale.y)
         {
@@ -114,8 +111,7 @@ public class BlockController : MonoBehaviour
             {
                 m_AudioSource.clip = m_CrashAudio;
                 Sound();
-                m_Rigidbody.constraints = RigidbodyConstraints2D.None;
-                //m_Rigidbody.SetRotation(15f);
+                m_Rigidbody.constraints = RigidbodyConstraints2D.FreezeRotation;
                 m_Collider.enabled = false;
                 StartCoroutine(DeactivatePlatform());
 
@@ -159,7 +155,6 @@ public class BlockController : MonoBehaviour
 
     private IEnumerator DeactivatePlatform()
     {
-        //Debug.Log("StartCoroutine");
         yield return new WaitForSeconds(1.8f);
         Debug.Log("Deactivate");
         m_Platform.gameObject.SetActive(false);
@@ -168,5 +163,15 @@ public class BlockController : MonoBehaviour
     public void SetCanCrash(bool canCrash)
     {
         m_CanCrash = canCrash;
+    }
+
+    public void ResetBlock()
+    {
+        m_Platform.transform.position = m_StartPosition;
+        m_CanCrash = false;
+        m_AudioSource.clip = m_PolyporeAudio;
+        m_Rigidbody.constraints = RigidbodyConstraints2D.FreezeAll;
+        m_Collider.enabled = true;
+        m_Platform.gameObject.SetActive(true);
     }
 }
